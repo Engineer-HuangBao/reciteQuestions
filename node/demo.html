@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea name="aaa" id="aa" cols="30" rows="10"></textarea>
+    <button>点击发送</button>
+</body>
+</html>
+<script>
+    let a = document.getElementById("aa");
+    let btn =  document.querySelector("button");
+    
+    //点击按钮发起Ajax请求,并将textarea中的内容作为参数传递
+    btn.onclick = function(){
+            
+        let xhr = new XMLHttpRequest();
+
+        xhr.open("get","http://localhost:3000");
+
+        xhr.send();
+
+        xhr.onload = function(){
+            console.log(xhr.responseText);
+        }
+    }
+</script>
