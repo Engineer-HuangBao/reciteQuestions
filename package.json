@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "node ./node/app.js & vite",
+    "vite": "vite",
     "serve": "node ./node/app.js",
-    "vites": "vite",
+    "pkillServe": "pkill node",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },

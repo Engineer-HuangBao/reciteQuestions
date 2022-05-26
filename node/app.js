@@ -1,6 +1,7 @@
 const fs = require('fs')
 const http = require('http')
 const querystring = require('querystring')
+let port = 3022 // 服务器端口号
 
 
 
@@ -30,6 +31,7 @@ app.on('request', (req, res) => {
   res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
   console.log('嘿嘿嘿')
   let datastr = null
+  
   fs.readFile('./node/ceshi.json','utf8', function(err,datastr){
     if (err) return  console.log('文件读取失败');
     //  5.调用fs.writeFile()方法,把处理完毕后的成绩
@@ -48,9 +50,8 @@ app.on('request', (req, res) => {
 //   const url = req.url
 //   res.end(`<h1>hello world<h1>`)
 // })
-app.listen(3022)
-
-
+app.listen(port)
+console.log('服务器已启动 - Local: http://localhost:' + port)
 
 
 
