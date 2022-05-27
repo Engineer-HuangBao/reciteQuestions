@@ -42,9 +42,9 @@ initializationData()
 const server = http.createServer()
 server.on('request', (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  // res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  // res.header('Access-Control-Allow-Headers', ['mytoken','Content-Type']);
+  res.setHeader('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+  res.setHeader('Access-Control-Allow-Headers', ['mytoken', 'token','Content-Type']);
   res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
   let datastr = null
   let url = req.url

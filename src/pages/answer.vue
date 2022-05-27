@@ -1,4 +1,9 @@
 <script setup  lang="ts">
+  import { ref, getCurrentInstance, onBeforeMount, onMounted } from 'vue'
+  const { $https } = getCurrentInstance().appContext.config.globalProperties
+  const aa = () => {
+    $https('getList', {cheshi: 123})
+  }
   let data = [
     { name: 'Html5', key: 'Html5' , title: '解释解释解释解释解', on: true },
     { name: 'Css3', key: 'Css3' , title: '解释解释解释解释解', on: true },
@@ -15,7 +20,7 @@
 </script>
 
 <template>
-  <h1><span>请选择提纲</span></h1>
+  <h1 @click="aa"><span>请选择提纲</span></h1>
   <article>
     <div v-for="(item, index) in data">
       <span :class="['iconfont me', item.on ? 'onIconfont' : '']">&#xe78e;</span>
