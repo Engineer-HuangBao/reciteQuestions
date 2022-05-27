@@ -5,9 +5,14 @@ const router = [
     component: () => import('../pages/home.vue')
   },
   {
-    name: 'answer',
-    path: '/answer',
-    component: () => import('../pages/answer.vue'),
+    name: 'selectedTopic',
+    path: '/selectedTopic',
+    component: () => import('../pages/selectedTopic.vue'),
+  },
+  {
+    name: 'modify',
+    path: '/modify',
+    component: () => import('../pages/modify.vue')
   },
   {
     name: 'support',

@@ -1,0 +1,25 @@
+
+.dialog {
+  z-index: 10;
+  width: 100vw;
+  height: 100vw;
+  background: rgb(118, 118, 118);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  header {
+    span {
+      float: right;
+    }
+    ul {
+      float: right;
+      display: flex;
+    }
+  }
+  .articleDiv {
+    text-align: left;
+    position: relative;
+    margin: auto;
+    top: 52.0px;
+  }
+}

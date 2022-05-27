@@ -2,17 +2,13 @@
   import { ref, getCurrentInstance, onBeforeMount, onMounted } from 'vue'
   const { $router } = getCurrentInstance().appContext.config.globalProperties
 
-  onBeforeMount(() => {
-    console.log($router.currentRoute._value)
-  })
-  onMounted(() => {
-    console.log($router.currentRoute._rawValue)
-  })
+  onBeforeMount(() => $router.push('/'))
+  // onMounted(() => {})
 
   const headers = [
     { name: '首页', key: '/', icons: '', width: '100%' },
-    { name: '答题', key: 'answer', icons: '&#xe75b;', width: '1200px' },
-    { name: '自定义提纲', key: 'answer', icons: '&#xe6f6;', width: '1200px' },
+    { name: '答题', key: 'selectedTopic', icons: '&#xe75b;', width: '1200px' },
+    { name: '自定义提纲', key: 'modify', icons: '&#xe6f6;', width: '1200px' },
     { name: '友情打赏', key: 'support', icons: '&#xe7c4;', width: '1200px' },
   ]
   const current = ref({key: '/'})

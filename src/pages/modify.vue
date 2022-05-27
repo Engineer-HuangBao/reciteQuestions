@@ -3,5 +3,5 @@
 </script>
 
 <template>
-4
+3
 </template>
