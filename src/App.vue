@@ -1,24 +1,26 @@
-<script setup lang="ts">
-import { ref, getCurrentInstance } from 'vue'
-import './App.scss'
-const currentInstance = getCurrentInstance()
+<script setup scoped lang="ts">
+  import { ref, getCurrentInstance, onBeforeMount, onMounted } from 'vue'
+  const { $router } = getCurrentInstance().appContext.config.globalProperties
 
-const { $router } = currentInstance.appContext.config.globalProperties
-// export default {
-//   setup(props, cxt) {
+  onBeforeMount(() => {
+    console.log($router.currentRoute._value)
+  })
+  onMounted(() => {
+    console.log($router.currentRoute._rawValue)
+  })
 
-//   }
-// }
-const headers = [
-  { name: '首页', key: '/', icons: '' },
-  { name: '答题', key: 'answer', icons: '&#xe75b;' },
-  { name: '友情资助', key: 'support', icons: '&#xe7c7;' },
-]
-const current = ref('/')
-const onLis = (data) => {
-  current.value = data.key
-  $router.push(data.key)
-}
+  const headers = [
+    { name: '首页', key: '/', icons: '', width: '100%' },
+    { name: '答题', key: 'answer', icons: '&#xe75b;', width: '1200px' },
+    { name: '自定义提纲', key: 'answer', icons: '&#xe6f6;', width: '1200px' },
+    { name: '友情打赏', key: 'support', icons: '&#xe7c4;', width: '1200px' },
+  ]
+  const current = ref({key: '/'})
+  const onLis = (data) => {
+    current.value = data
+    $router.push(data.key)
+  }
+
 </script>
 <template>
   <header>
@@ -28,7 +30,7 @@ const onLis = (data) => {
           key="index"
           @click="onLis(item)"
           v-for="(item, index) in headers"
-          :class=" current === item.key ? 'onLi' : ''"
+          :class=" current.key === item.key ? 'onLi' : ''"
         >
           <span class="iconfont" v-html="item.icons" />
           {{ item.name }}
@@ -39,10 +41,9 @@ const onLis = (data) => {
       <span class="iconfont me">&#xe779;</span>
     </div>
   </header>
-  <router-view></router-view>
+  <div class="articleDiv">
+    <router-view></router-view>
+  </div>
 </template>
-140.82.112.4 github.com
-199.232.69.194 github.global.ssl.fastly.net
-185.199.108.153 assets-cdn.github.com 
-185.199.110.153 assets-cdn.github.com 
-185.199.111.153 assets-cdn.github.com 
+
+<style src="./App.scss" scoped />

@@ -1,0 +1,33 @@
+h1 {
+  margin-top: 20px;
+  text-align: center;
+  span {
+    display: inline-block;
+    padding: 10px 50px;
+    background: #dddddd98;
+    border-radius: 99px;
+  }
+}
+article {
+  flex-wrap: wrap;
+  padding: 20px 40px;
+  justify-content: center;
+  display: flex;
+  font-size: 38px;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    min-width: 200px;
+    margin: 20px;
+    padding: 10px 20px;
+    background: #dddddd98;
+    .iconfont { font-size: 52.0px;} 
+    .onIconfont { color: #006fffc4; }
+  }
+  p {
+    font-size: 18px;
+  }
+}
