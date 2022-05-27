@@ -1,4 +1,12 @@
 
+<script setup lang="ts">
+  import { ref } from 'vue'
+
+  defineProps<{ msg: string }>()
+
+</script>
+
+<template>
   <div class="dialog">
     <header>
       <span>返回</span>
@@ -17,3 +25,6 @@
       12312
     </div>
   </div>
+</template>
+
+<style src="./answer.scss" scoped />

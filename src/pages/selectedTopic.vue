@@ -1,4 +1,5 @@
 <script setup  lang="ts">
+  import Answer from '../components/Answer.vue'
   import { ref, getCurrentInstance, onBeforeMount, onMounted } from 'vue'
   const { $https, $router } = getCurrentInstance().appContext.config.globalProperties
   const data = ref([])
@@ -33,7 +34,6 @@
     <span v-else class="onGoSpan" @click="onGoSpan">
       开始答题
     </span>
-    
   </h1>
   <article>
     <div v-for="(item, index) in data" :class="!item.isChoice && 'noDrop'" @click="onChoose(item)">
@@ -42,6 +42,8 @@
       <p>{{ item.title }}</p>
     </div>
   </article>
+
+  <Answer onData />
 
 </template>
 
