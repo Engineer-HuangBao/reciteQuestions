@@ -20,9 +20,9 @@
             
         let xhr = new XMLHttpRequest();
 
-        xhr.open("get","http://localhost:3000");
-
-        xhr.send();
+        xhr.open("post","http://localhost:3022/getList", true);
+        xhr.setRequestHeader ('Content-type', 'application/x-www-form-urlencoded');
+        xhr.send('user=1111');
 
         xhr.onload = function(){
             console.log(xhr.responseText);
