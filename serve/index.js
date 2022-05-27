@@ -12,7 +12,7 @@ let fromData = {
 
 function initializationData () {
   Object.keys(fromData).map(item => {
-    fs.readFile('./node/dataBase/' + item + '.json','utf8', function(err, datastr){
+    fs.readFile('./serve/dataBase/' + item + '.json','utf8', function(err, datastr){
       let init = {
         "title": datastr ? JSON.parse(datastr)['title'] : "备注注解",
         "name": item.slice(0,1).toUpperCase() +item.slice(1).toLowerCase(),
@@ -20,7 +20,7 @@ function initializationData () {
         "data": datastr ? JSON.parse(datastr)['data'] : {},
         "isChoice": JSON.stringify(JSON.parse(datastr)['data']) != '{}'
       }
-      if (err) return fs.writeFile('./node/dataBase/'+ item + '.json', JSON.stringify(init) ,'utf8',(err,data)=> fromData[item] = init)
+      if (err) return fs.writeFile('./serve/dataBase/'+ item + '.json', JSON.stringify(init) ,'utf8',(err,data)=> fromData[item] = init)
       fromData[item] = init
     })
   })
@@ -44,7 +44,7 @@ server.on('request', (req, res) => {
 
 function getList(res) {
   let data = []
-  Object.keys(fromData).map(item => data.push(fromData[item]))
+  Object.keys(fromData).map(item => data.push({...fromData[item], data: {}}))
   res.end(JSON.stringify(data))
 }
 

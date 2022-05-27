@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "node ./node/index.js & vite",
+    "dev": "node ./serve/index.js & vite",
     "vite": "vite",
-    "serve": "node ./node/index.js",
+    "serve": "node ./serve/index.js",
     "pkillServe": "pkill node",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"

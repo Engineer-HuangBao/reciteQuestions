@@ -7,7 +7,7 @@ const router = [
   {
     name: 'answer',
     path: '/answer',
-    component: () => import('../pages/answer.vue')
+    component: () => import('../pages/answer.vue'),
   },
   {
     name: 'support',
