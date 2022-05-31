@@ -21,8 +21,12 @@
       }
     })
   }
+
+  const shows = ref(false)
   const onGoSpan = () => {
+    shows.value = true
   }
+
 </script>
 
 <template>
@@ -43,7 +47,7 @@
     </div>
   </article>
 
-  <Answer onData />
+  <Answer :shows="shows" @onshows="shows = $event"/>
 
 </template>
 

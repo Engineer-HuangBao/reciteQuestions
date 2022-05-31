@@ -7,7 +7,8 @@
   height: 100%;
   overflow: auto;
   position: fixed;
-  background: rgb(203 203 203);
+  background: #fafafa;
+  // background-image: linear-gradient(to top, #84fab0 0%, #a6c1ee 100%);
   header {
     user-select: none;
     #goback {
@@ -72,7 +73,7 @@
       padding: 10px;
       border-radius: 10px;
       box-sizing: border-box;
-      background: rgb(169 169 169 / 97%);
+      box-shadow: 0px 0px 5px -1px;
       height: calc(100vh - 52px - 10px - 14px);
     }
     .left {
@@ -93,22 +94,34 @@
       height: 15px;
     }
 
+
     .middle{
+      background: transparent;
+      box-shadow: 0px 0px 0px 0px;
+      padding: 0px 10px;
       flex: 7;
       min-width: 470px;
-      margin: 7px;
+      margin: 0px;
       display: flex;
       flex-direction: column;
+      h2, textarea, div {
+        border-radius: 10px;
+        box-shadow: 0px 0px 5px -1px;
+        box-sizing: border-box;
+      }
       h2 {
-        text-align: center;
-        padding: 5px 0px 15px 0px;
+        margin-bottom: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+        padding: 10px 0px 10px 0px;
+        box-shadow: 0px 0px 5px -1px;
       }
       textarea {
+        margin-bottom: 17px;
         font-size: 20px;
         text-align: center;
         width: calc(100% - 2px);
-        height: 100px;
-        background: transparent;
         border: 1px dashed black;
         outline: none;
         flex: 1;
@@ -116,24 +129,33 @@
         justify-content: center;
         align-items: center;
         resize: none;
+        background: transparent;
+        box-shadow: 0px 0px 5px -1px;
       }
       div {
         flex: 1;
-        margin-top: 10px;
-        border: 1px dashed black;
+        // border: 1px dashed black;
         width: calc(100% - 2px);
-        height: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
+        box-shadow: 0px 0px 5px -1px;
+        textarea {
+          margin: 0px;
+          height: calc(100%);
+        }
       }
     }
+    
+
     .right {
       flex: 2.5;
       min-width: 300px;
       overflow: auto;
       ul {
         li {
+          cursor: pointer;
+          user-select: none;
           margin: 10px 0px;
           text-align: center;
           line-height: 52px;
@@ -146,6 +168,9 @@
         }
         li:nth-child(3) {
           background: #ff000050;
+        }
+        .noBtn {
+          background: rgb(0 0 0 / 26%) !important;
         }
       }
       div {
