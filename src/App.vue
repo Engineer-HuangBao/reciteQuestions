@@ -42,4 +42,4 @@
   </div>
 </template>
 
-<style src="./App.scss" scoped />
+<style src="./scss/App.scss" scoped />

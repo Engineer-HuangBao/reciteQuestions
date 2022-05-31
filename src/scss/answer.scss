@@ -10,9 +10,13 @@
   background: #fafafa;
   // background-image: linear-gradient(to top, #84fab0 0%, #a6c1ee 100%);
   header {
+    width: 100%;
     user-select: none;
+    justify-content: space-between;
     #goback {
       cursor: pointer;
+      position: relative;
+      left: 10px;
       font-size: 25px !important;
     }
     ul {

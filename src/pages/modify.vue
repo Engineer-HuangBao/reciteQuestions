@@ -5,3 +5,6 @@
 <template>
 3
 </template>
+
+<style src="../scss/modify.scss" scoped />
+

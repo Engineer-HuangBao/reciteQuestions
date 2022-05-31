@@ -56,7 +56,7 @@
   onBeforeUnmount(() => {
     document.onkeydown = e => {}
     document.onkeyup = e => {}
-    setInt = null
+    clearInterval(setInt)
   })
 
 </script>
@@ -64,15 +64,13 @@
 <template>
   <div class="dialog" v-show="shows">
     <header>
-      <div class="articles">
-        <span id="goback" @click="emit('onshows', false)" class="iconfont me">&#xe762;</span>
-        <ul>
-          <li class="numberOfQuestions"><span>30</span> / <span>26</span> / <span>4</span></li>
-          <li class="uplower"><span>时长</span><span>{{ answerTime.tiem }}</span></li>
-          <li class="uplower"><span>北京时间</span><span>{{ presentTime }}</span></li>
-          <li ><span id="end">结束答题</span></li>
-        </ul>
-      </div>
+      <span id="goback" @click="emit('onshows', false)" class="iconfont me">&#xe762;</span>
+      <ul>
+        <li class="numberOfQuestions"><span>30</span> / <span>26</span> / <span>4</span></li>
+        <li class="uplower"><span>时长</span><span>{{ answerTime.tiem }}</span></li>
+        <li class="uplower"><span>北京时间</span><span>{{ presentTime }}</span></li>
+        <li ><span id="end">结束答题</span></li>
+      </ul>
     </header>
     <div class="articleDiv">
       <div class="left">
@@ -82,7 +80,8 @@
         <h2>xxxxxxxxx是干嘛用的?</h2>
         <textarea name="textarea"></textarea>
         <div>
-          <textarea name="" id=""></textarea>
+          <!-- <textarea name="" id=""></textarea> -->
+          <span>答案</span>
         </div>
       </div>
       <div class="right">
@@ -108,4 +107,4 @@
   </div>
 </template>
 
-<style src="./answer.scss" scoped />
+<style src="../scss/answer.scss" scoped />
