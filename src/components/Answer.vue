@@ -72,19 +72,20 @@
         <li ><span id="end">结束答题</span></li>
       </ul>
     </header>
+    
     <div class="articleDiv">
-      <div class="left">
+      <div class="left boxShadow">
         <p v-for="(item, index) in demo1">{{ item }}</p>
       </div>
       <div class="middle">
-        <h2>xxxxxxxxx是干嘛用的?</h2>
-        <textarea name="textarea"></textarea>
-        <div>
+        <h2 class="boxShadow">xxxxxxxxx是干嘛用的?</h2>
+        <textarea class="boxShadow" name="textarea"></textarea>
+        <div class="boxShadow">
           <!-- <textarea name="" id=""></textarea> -->
           <span>答案</span>
         </div>
       </div>
-      <div class="right">
+      <div class="right boxShadow">
         <ul>
           <li :class="!btnState.edit ? 'noBtn' : ''">确认答题&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;揭答案</li>
           <li :class="btnState.edit ? 'noBtn' : ''">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>

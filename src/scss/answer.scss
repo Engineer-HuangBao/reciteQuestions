@@ -8,7 +8,6 @@
   overflow: auto;
   position: fixed;
   background: #fafafa;
-  // background-image: linear-gradient(to top, #84fab0 0%, #a6c1ee 100%);
   header {
     width: 100%;
     user-select: none;
@@ -61,6 +60,7 @@
       }
     }
   }
+  
   .articleDiv {
     top: 52.0px;
     margin: auto;
@@ -75,9 +75,7 @@
     .left, .middle, .right {
       margin: 7px;
       padding: 10px;
-      border-radius: 10px;
       box-sizing: border-box;
-      box-shadow: 0px 0px 5px -1px;
       height: calc(100vh - 52px - 10px - 14px);
     }
     .left {
@@ -100,8 +98,6 @@
 
 
     .middle{
-      background: transparent;
-      box-shadow: 0px 0px 0px 0px;
       padding: 0px 10px;
       flex: 7;
       min-width: 470px;
@@ -109,8 +105,6 @@
       display: flex;
       flex-direction: column;
       h2, textarea, div {
-        border-radius: 10px;
-        box-shadow: 0px 0px 5px -1px;
         box-sizing: border-box;
       }
       h2 {
@@ -119,7 +113,6 @@
         justify-content: center;
         align-items: center;        
         padding: 10px 0px 10px 0px;
-        box-shadow: 0px 0px 5px -1px;
       }
       textarea {
         margin-bottom: 17px;
@@ -133,17 +126,13 @@
         justify-content: center;
         align-items: center;
         resize: none;
-        background: transparent;
-        box-shadow: 0px 0px 5px -1px;
       }
       div {
         flex: 1;
-        // border: 1px dashed black;
         width: calc(100% - 2px);
         display: flex;
         justify-content: center;
         align-items: center;
-        box-shadow: 0px 0px 5px -1px;
         textarea {
           margin: 0px;
           height: calc(100%);

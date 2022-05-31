@@ -44,7 +44,7 @@
       <div class="boxShadow table">表</div>
       <div class="boxShadow subject">题目</div>
       <div class="boxShadow answer">答案</div>
-      <div class="boxShadow btns">按钮</div>
+      <div class="boxShadow btns">分页\操作按钮</div>
     </div>
   </div>
 </template>
