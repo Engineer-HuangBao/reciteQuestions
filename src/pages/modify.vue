@@ -27,13 +27,13 @@
         <p
           v-for="(item, index) in listData"
           :key="index"
-          :class="state.onList === item.key ?  'onP' : ''"
+          :class="[state.onList === item.key ?  'onP' : '', 'hover']"
           @click="onListP(item)"
         >{{ item.name }}</p>
       </div>
       <div class="btns boxShadow cursor">
-        <span>新增</span>
-        <span>修改</span>
+        <span class="hover">新增</span>
+        <span class="hover">修改</span>
       </div>
     </div>
     <div class="right">
@@ -41,7 +41,86 @@
         <span>Html, 超文本标记语言啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧啊吧</span>
         <div class="boxShadow search">搜索</div>
       </div>
-      <div class="boxShadow table">表</div>
+      <div class="boxShadow table">
+        <table border="0" cellspacing="0">
+          <thead>
+            <tr>
+              <th>名字</th>
+              <th>答题次数</th>
+              <th>常问题</th>
+              <!-- <th>对错次数</th> -->
+              <th>自主修改</th>
+              <th>答案</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr class="hover">
+              <td>1</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>2</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>3</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>4</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>5</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>6</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>7</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+            <tr class="hover">
+              <td>8</td>
+              <td>1</td>
+              <td>1</td>
+              <!-- <td>1</td> -->
+              <td>1</td>
+              <td>1</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
       <div class="boxShadow subject">题目</div>
       <div class="boxShadow answer">答案</div>
       <div class="boxShadow btns">分页\操作按钮</div>

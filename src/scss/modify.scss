@@ -21,10 +21,6 @@
         text-align: center;
         flex: 1;
       }
-      span:hover {
-        box-shadow: 0px 0px 5px -1px;
-        background: #dddddd;
-      }
     }
     .list {
       padding: 10px 0px;
@@ -33,10 +29,6 @@
       overflow: auto;
       p {
         padding: 5px 10px;
-      }
-      p:hover {
-        box-shadow: 0px 0px 5px -1px;
-        background: #dddddd;
       }
       .onP {
         box-shadow: 0px 0px 4px -2px;
@@ -72,8 +64,29 @@
       }
     }
     .table {
+      height: 0px;
       flex: 4;
+      overflow: auto;
       margin-bottom: 13px;
+      position: relative;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        tr {
+          height: 24px;
+          line-height: 24px;
+          border-bottom: 1px solid #b5b5b5;
+        }
+      }
+      .tableHeader {
+        position: absolute;
+        top: 1px;
+        left: 0px;
+      }
+    }
+    .table::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
     }
     .btns {
       height: 40px;
@@ -88,4 +101,10 @@
       
     }
   }
+}
+
+.hover:hover,
+.hover:target {
+  box-shadow: 0px 0px 5px -1px;
+  background: #dddddd;
 }
