@@ -28,11 +28,11 @@ header {
 }
 
 .articleDiv {
-
   text-align: left;
   position: relative;
   margin: auto;
   top: 52.0px;
+  height: calc(100vh - 52.0px);
   // article {
   //   margin: auto;
   //   margin-top: 15.2px;
