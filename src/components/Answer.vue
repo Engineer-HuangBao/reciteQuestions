@@ -85,15 +85,15 @@
           <span>答案</span>
         </div>
       </div>
-      <div class="right boxShadow">
-        <ul>
+      <div class="right">
+        <ul class="boxShadow">
           <li :class="!btnState.edit ? 'noBtn' : ''">确认答题&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;揭答案</li>
           <li :class="btnState.edit ? 'noBtn' : ''">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
           <li :class="btnState.edit ? 'noBtn' : ''">答题错误&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
           <li :class="btnState.edit ? 'noBtn' : ''">修改提示答案</li>
           <li :class="btnState.edit ? 'noBtn' : ''">确定修改提示答案</li>
         </ul>
-        <div>
+        <div class="boxShadow">
           <span>空格 + 回车: 答题确认-出现答案</span>
           <span>空格 + Y: 答题正确-下一题</span>
           <span>空格 + N: 答题错误-下一题</span>
