@@ -72,10 +72,21 @@
       table {
         width: 100%;
         border-collapse: collapse;
+        overflow: auto;
         tr {
           height: 24px;
           line-height: 24px;
           border-bottom: 1px solid #b5b5b5;
+          th:nth-child(1) {
+            min-width: 188px;
+          }
+          th:nth-child(2) {
+            min-width: 100px;
+          }
+        }
+        .onTr {
+          box-shadow: 0px 0px 4px -2px;
+          background: #afafafab !important;
         }
       }
       .tableHeader {
@@ -90,15 +101,43 @@
     }
     .btns {
       height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .paging {
+        span {
+          line-height: 40px;
+          padding: 10px 10px;
+          input {
+            width: 35px;
+            height: 20px;
+            font-size: 16px;
+            background: transparent;
+            text-align: right;
+            border: 0px solid rgba(221, 221, 221, 0.5960784314);
+          }
+        }
+      }
+
+      .operation {
+        overflow: hidden;
+        span {
+          padding: 10px 25px;
+          line-height: 40px;
+        }
+      }
     }
     .subject {
+      text-align: center;
       flex: 2;
       margin-bottom: 13px;
+      border: 0px;
     }
     .answer {
+      border: 0px;
       margin-bottom: 13px;
       flex: 3;
-      
     }
   }
 }
