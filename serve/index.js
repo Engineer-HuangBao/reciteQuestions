@@ -17,8 +17,8 @@ function initializationData () {
         "title": datastr ? JSON.parse(datastr)['title'] : "备注注解",
         "name": item.slice(0,1).toUpperCase() +item.slice(1).toLowerCase(),
         "key": item,
-        "data": datastr ? JSON.parse(datastr)['data'] : {},
-        "isChoice": JSON.stringify(JSON.parse(datastr)['data']) != '{}'
+        "data": datastr ? JSON.parse(datastr)['data'] : [],
+        "isChoice": datastr ? JSON.stringify(JSON.parse(datastr)['data']) != '{}' : false
       }
       if (err) return fs.writeFile('./serve/dataBase/'+ item + '.json', JSON.stringify(init) ,'utf8',(err,data)=> fromData[item] = init)
       fromData[item] = init
@@ -46,6 +46,7 @@ server.on('request', (req, res) => {
   req.on('end',()=>{
     if (req.url === '/getList') return getList(res)
     if (req.url === '/details') return details(postParams, res)
+    if (req.url === '/detailsAdd') return detailsAdd(postParams, res)
   })
 })
 
@@ -61,6 +62,28 @@ function details(params, res) {
   res.end(JSON.stringify(data))
 }
 
+function detailsAdd(params, res) {
+  if (!params) return res.end('')
+  let data = JSON.parse(params)
+  let keyNum = fromData[data.key].data.length ? fromData[data.key].data[fromData[data.key].data.length - 1].key.split(data.key)[1] : 0
+  data.data.map(item => {
+    keyNum++
+    let setData = {
+      answerTimes: item.answerTimes || '',
+      frequentProblems: item.frequentProblems || '',
+      rightAndWrongTimes: item.rightAndWrongTimes || '',
+      modify: item.modify || '',
+      name: item.name || '',
+      key: data.key + keyNum,
+      answer: item.answer || ''
+    }
+    fromData[data.key].data.push(setData)
+  })
+  fs.writeFile('./serve/dataBase/'+ data.key + '.json', JSON.stringify(fromData[data.key]) ,'utf8',(err,data)=> {
+    if (err) return res.end(JSON.stringify({"code": 0, "msg": "新增失败！请检查代码或联系管理员"}))
+    res.end(JSON.stringify({"code": 1, "msg": "新增成功！"}))
+  })
+}
 
 server.listen(port)
 console.log('服务器已启动 - Local: http://localhost:' + port)

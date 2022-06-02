@@ -16,22 +16,30 @@
   })
 
   // 详情
-  const listDetails = ref([])
+  const listDetails = ref({})
   const page = ref(1)
   const onListP = item => {
     state.value.onList = item.key
     $https('details', {"key": item.key}).then(res => {
-      listDetails.value = res
+      listDetails.value = { ...res }
       editRow.value = {}
     })
   }
   const editRow = ref({})
   const tableOnClick = item => {
     if (JSON.stringify(editRow.value) !== '{}' && editRow.value.key === item.key) return editRow.value = {}
-    editRow.value = item
+    editRow.value = { ...item }
   }
   const rowAdd = () => {
-    if (JSON.stringify(editRow.value) !== '{}') return console.log('请先取消表格内的选中数据！（再次点击选中数据即可）')
+    if (editRow.value['key']) return alert('请先取消表格内的选中数据！（再次点击选中数据即可）')
+    const name = editRow.value['name']
+    const answer = editRow.value['answer']
+    if (!listDetails.value['key']) return alert('请先选择提纲！')
+    if (!name || !answer) return alert('请先输入题目与内容！')
+    let data = {...listDetails.value, data: [{name, answer}]}
+    $https('detailsAdd', data).then(res => {
+      onListP(data)
+    })
   }
   const rowEdit = () => {}
   const rowDelete = () => {}
@@ -89,7 +97,7 @@
         </table>
       </div>
       <input class="boxShadow subject" v-model="editRow.name" />
-      <textarea class="boxShadow answer">{{ editRow.answer }}</textarea>
+      <textarea class="boxShadow answer" v-model="editRow.answer" />
       <div class="boxShadow btns">
         <div class="paging cursor">
           <span><input type="text" v-model="page"> / 20</span>

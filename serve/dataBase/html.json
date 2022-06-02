@@ -1,8 +1,1 @@
-{
-  "title": "备注注解",
-  "name": "Html",
-  "key": "html",
-  "data": [
-    { "answerTimes": "", "frequentProblems":"", "rightAndWrongTimes": "", "modify": "", "name": "浏览器渲染机制", "key": "html000001", "answer": "1.html被HTML解析器解析成为DOM树。2.css被css解析器解析成为CSSOM树。3.结合DOM树与CSSOM树,生成一个渲染树Render Tree。4.然后到生成布局(flow), 将所有渲染的树所有节点就行平面合成。5.将布局绘制（paint）在屏幕上。" }
-  ]
-}
+{"title":"备注注解","name":"Html","key":"html","data":[{"answerTimes":"","frequentProblems":"","rightAndWrongTimes":"","modify":"","name":"浏览器渲染机制","key":"html1","answer":"1.html被HTML解析器解析成为DOM树。2.css被css解析器解析成为CSSOM树。3.结合DOM树与CSSOM树,生成一个渲染树Render Tree。4.然后到生成布局(flow), 将所有渲染的树所有节点就行平面合成。5.将布局绘制（paint）在屏幕上。"},{"answerTimes":"","frequentProblems":"","rightAndWrongTimes":"","modify":"","name":"333","key":"html2","answer":"444"},{"answerTimes":"","frequentProblems":"","rightAndWrongTimes":"","modify":"","name":"2323","key":"html3","answer":"23232"},{"answerTimes":"","frequentProblems":"","rightAndWrongTimes":"","modify":"","name":"2323","key":"html4","answer":"2323"}],"isChoice":true}
