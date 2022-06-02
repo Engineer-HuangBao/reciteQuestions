@@ -15,7 +15,7 @@
     })
   })
 
-  // 详情
+  // 题目
   const listDetails = ref({})
   const page = ref(1)
   const onListP = item => {
@@ -25,23 +25,37 @@
       editRow.value = {}
     })
   }
+  // 选中题目数据
   const editRow = ref({})
   const tableOnClick = item => {
     if (JSON.stringify(editRow.value) !== '{}' && editRow.value.key === item.key) return editRow.value = {}
     editRow.value = { ...item }
   }
+  // 新增题目
   const rowAdd = () => {
-    if (editRow.value['key']) return alert('请先取消表格内的选中数据！（再次点击选中数据即可）')
+    if (!listDetails.value['key']) return alert('请先选择提纲！')
+    if (editRow.value['key']) return alert('请先取消题目选中数据！（再次点击选中数据即可）')
     const name = editRow.value['name']
     const answer = editRow.value['answer']
-    if (!listDetails.value['key']) return alert('请先选择提纲！')
     if (!name || !answer) return alert('请先输入题目与内容！')
-    let data = {...listDetails.value, data: [{name, answer}]}
+    const data = {...listDetails.value, data: [{name, answer}]}
     $https('detailsAdd', data).then(res => {
       onListP(data)
     })
   }
-  const rowEdit = () => {}
+  // 修改题目
+  const rowEdit = () => {
+    if (!listDetails.value['key']) return alert('请先选择提纲！')
+    if (!editRow.value['key']) return alert('请先选择题目！')
+    const name = editRow.value['name']
+    const answer = editRow.value['answer']
+    if (!name || !answer) return alert('请先修改题目与内容！')
+    const data = { ...listDetails.value, data: { ...editRow.value, name, answer }}
+    $https('detailsEdit', data).then(res => {
+      onListP(data)
+    })
+  }
+  // 删除题目
   const rowDelete = () => {}
   
 </script>

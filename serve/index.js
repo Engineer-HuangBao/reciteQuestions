@@ -47,6 +47,7 @@ server.on('request', (req, res) => {
     if (req.url === '/getList') return getList(res)
     if (req.url === '/details') return details(postParams, res)
     if (req.url === '/detailsAdd') return detailsAdd(postParams, res)
+    if (req.url === '/detailsEdit') return detailsEdit(postParams, res)
   })
 })
 
@@ -85,6 +86,22 @@ function detailsAdd(params, res) {
   })
 }
 
+function detailsEdit(params, res) {
+  if (!params) return res.end('')
+  let data = JSON.parse(params)
+  let dataIndex = null
+  fromData[data.key].data.some((item, index) => {
+    if (item.key !== data.data.key) return
+    dataIndex = index
+    return true
+  })
+  fromData[data.key].data.splice(dataIndex, 1, data.data)
+  fs.writeFile('./serve/dataBase/'+ data.key + '.json', JSON.stringify(fromData[data.key]) ,'utf8',(err,data)=> {
+    if (err) return res.end(JSON.stringify({"code": 0, "msg": "修改失败！请检查代码或联系管理员"}))
+    res.end(JSON.stringify({"code": 1, "msg": "修改成功！"}))
+  })
+}
+
 server.listen(port)
 console.log('服务器已启动 - Local: http://localhost:' + port)
 
@@ -95,4 +112,4 @@ console.log('服务器已启动 - Local: http://localhost:' + port)
 
 
  
- 
+//  
