@@ -56,8 +56,15 @@
     })
   }
   // 删除题目
-  const rowDelete = () => {}
-  
+  const rowDelete = () => {
+    if (!listDetails.value['key']) return alert('请先选择提纲！')
+    if (!editRow.value['key']) return alert('请先选择题目！')
+    const data = { ...listDetails.value, data: { ...editRow.value }}
+    $https('detailsDelete', data).then(res => {
+      onListP(data)
+    })
+  }
+
 </script>
 
 <template>
