@@ -37,9 +37,16 @@ server.on('request', (req, res) => {
   res.setHeader('Access-Control-Allow-Headers', ['mytoken', 'token','Content-Type']);
   res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
 
-  if (req.url === '/getList') return getList(res)
-  if (req.url === '/add') res.end(`{a: 123}`)
-  if (req.url === '/set') res.end(`{a: 123}`)
+
+
+  let postParams = ''
+  req.on('data',(parmas)=>{
+    postParams += parmas
+  })
+  req.on('end',()=>{
+    if (req.url === '/getList') return getList(res)
+    if (req.url === '/details') return details(postParams, res)
+  })
 })
 
 function getList(res) {
@@ -48,6 +55,11 @@ function getList(res) {
   res.end(JSON.stringify(data))
 }
 
+function details(params, res) {
+  if (!params) return res.end('')
+  let data = fromData[JSON.parse(params).key]
+  res.end(JSON.stringify(data))
+}
 
 
 server.listen(port)
