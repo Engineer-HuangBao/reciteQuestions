@@ -5,9 +5,9 @@ const querystring = require('querystring')
 let port = 3022 // 服务器端口号
 
 let fromData = {
-  html: {}, java: {}, css3: {}, javaScript: {},
-  webpack: {}, vite: {}, wechatApplet: {}, nodeJs: {},
-  app: {}, mySQL: {}, 'c++': {}, php: {},
+  html: {}, css3: {}, javaScript: {}, react: {}, vue: {}, angular: {},
+  wechatApplet: {}, app: {},webpack: {}, vite: {}, nodeJs: {}, 
+  java: {}, 'c++': {}, php: {}, mySQL: {}, git: {}
 }
 
 function initializationData () {
@@ -96,6 +96,7 @@ function detailsEdit(params, res) {
     dataIndex = index
     return true
   })
+  data.data.modify = true
   fromData[data.key].data.splice(dataIndex, 1, data.data)
   fs.writeFile('./serve/dataBase/'+ data.key + '.json', JSON.stringify(fromData[data.key]) ,'utf8',(err,data)=> {
     if (err) return res.end(JSON.stringify({"code": 0, "msg": "修改失败！请检查代码或联系管理员"}))

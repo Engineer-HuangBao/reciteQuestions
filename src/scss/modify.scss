@@ -83,7 +83,15 @@
           th:nth-child(2) {
             min-width: 100px;
           }
+          .modify {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 230px;
+            display: inline-block;
+          }
         }
+
         .onTr {
           box-shadow: 0px 0px 4px -2px;
           background: #afafafab !important;
