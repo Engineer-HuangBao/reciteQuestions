@@ -79,13 +79,14 @@
         >{{ item.name }}</p>
       </div>
       <div class="btns boxShadow cursor">
-        <span class="hover">新增</span>
-        <span class="hover">修改</span>
+        <!--  <span class="hover">新增</span>
+        <span class="hover">修改</span> -->
       </div>
     </div>
     <div class="right">
       <div class="top">
-        <span v-html="listDetails.key ? listDetails.key + ',' + listDetails.title : '请选择提纲'"></span>
+        <!-- + ',' + listDetails.title  -->
+        <span v-html="listDetails.key ? listDetails.key: '请选择提纲'"></span>
         <!-- <div class="boxShadow search">搜索</div> -->
       </div>
       <div class="boxShadow table">
@@ -120,11 +121,11 @@
       <input class="boxShadow subject" v-model="editRow.name" />
       <textarea class="boxShadow answer" v-model="editRow.answer" />
       <div class="boxShadow btns">
-        <!--<div class="paging cursor">
-          <span><input type="text" v-model="page"> / 20</span>
+        <div class="paging cursor">
+          <!--<span><input type="text" v-model="page"> / 20</span>
           <span class="hover">上一页</span>
-          <span class="hover">下一页</span>
-        </div> -->
+          <span class="hover">下一页</span> -->
+        </div>
         <div class="operation cursor">
           <span class="hover" @click="rowAdd">新增</span>
           <span class="hover" @click="rowEdit">修改</span>
