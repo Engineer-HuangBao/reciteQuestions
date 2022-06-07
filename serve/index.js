@@ -4,12 +4,14 @@ const querystring = require('querystring')
 
 let port = 3022 // 服务器端口号
 
+// json文件配置
 let fromData = {
   html: {}, css3: {}, javaScript: {}, react: {}, vue: {}, angular: {},
   wechatApplet: {}, app: {},webpack: {}, vite: {}, nodeJs: {}, 
   java: {}, 'c++': {}, php: {}, mySQL: {}, git: {}
 }
 
+// 初始化
 function initializationData () {
   Object.keys(fromData).map(item => {
     fs.readFile('./serve/dataBase/' + item + '.json','utf8', function(err, datastr){
@@ -18,7 +20,7 @@ function initializationData () {
         "name": item.slice(0,1).toUpperCase() +item.slice(1).toLowerCase(),
         "key": item,
         "data": datastr ? JSON.parse(datastr)['data'] : [],
-        "isChoice": datastr ? JSON.stringify(JSON.parse(datastr)['data']) != '{}' : false
+        "isChoice": datastr ? JSON.stringify(JSON.parse(datastr)['data']) != '[]' : false
       }
       if (err) return fs.writeFile('./serve/dataBase/'+ item + '.json', JSON.stringify(init) ,'utf8',(err,data)=> fromData[item] = init)
       fromData[item] = init
@@ -29,6 +31,7 @@ initializationData()
 
 
 
+// 接口声明
 const server = http.createServer()
 server.on('request', (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -45,25 +48,61 @@ server.on('request', (req, res) => {
   })
   req.on('end',()=>{
     if (req.url === '/getList') return getList(res)
+    if (req.url === '/getSubject') return getSubject(postParams, res)
     if (req.url === '/details') return details(postParams, res)
     if (req.url === '/detailsAdd') return detailsAdd(postParams, res)
     if (req.url === '/detailsEdit') return detailsEdit(postParams, res)
     if (req.url === '/detailsDelete') return detailsDelete(postParams, res)
   })
 })
+server.listen(port)
+console.log('服务器已启动 - Local: http://localhost:' + port)
 
+
+// ----------------------- 答题页 -----------------------
+// 列表接口
 function getList(res) {
   let data = []
-  Object.keys(fromData).map(item => data.push({...fromData[item], data: {}}))
+  Object.keys(fromData).map(key => data.push({...fromData[key], isChoice: fromData[key]['data'].length , data: {}}))
   res.end(JSON.stringify(data))
 }
 
+let subjects = []
+let answers = {}
+// 获取题目
+function getSubject(params, res, num = 20) {
+  if (!params) return res.end('')
+  params = JSON.parse(params)
+  if (params['initial']) {
+    answers = {}
+    subjects = []
+    params.subjectList.map(key => {
+      subjects = [...subjects, ...fromData[key].data]
+    })
+  }
+  let backData = []
+  if (num > subjects.length) num = subjects.length
+  for (let i = 0; i < num; i++) {
+    let number = Math.floor(Math.random() * (subjects.length))
+    subjects[number].index = backData.length
+    backData.push(subjects[number])
+    answers[subjects[number]['key']] = true
+    subjects = [...subjects.slice(0, number), ...subjects.slice(number + 1, subjects.length)]
+  }
+
+  res.end(JSON.stringify(backData))
+}
+
+
+// ----------------------- 编辑页 -----------------------
+// 详情接口
 function details(params, res) {
   if (!params) return res.end('')
   let data = fromData[JSON.parse(params).key]
   res.end(JSON.stringify(data))
 }
 
+// 新增题目及答案接口
 function detailsAdd(params, res) {
   if (!params) return res.end('')
   let data = JSON.parse(params)
@@ -87,6 +126,7 @@ function detailsAdd(params, res) {
   })
 }
 
+// 修改题目及答案接口
 function detailsEdit(params, res) {
   if (!params) return res.end('')
   let data = JSON.parse(params)
@@ -104,6 +144,7 @@ function detailsEdit(params, res) {
   })
 }
 
+// 删除题目及答案接口
 function detailsDelete(params, res) {
   if (!params) return res.end('')
   let data = JSON.parse(params)
@@ -119,16 +160,3 @@ function detailsDelete(params, res) {
     res.end(JSON.stringify({"code": 1, "msg": "删除成功！"}))
   })
 }
-
-
-server.listen(port)
-console.log('服务器已启动 - Local: http://localhost:' + port)
-
-
-
-
-
-
-
- 
-//  
