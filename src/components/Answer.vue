@@ -139,7 +139,7 @@
         <li class="numberOfQuestions"><span>{{ correctSubject.length + errorSubject.length }}</span> / <span>{{ correctSubject.length }}</span> / <span>{{ errorSubject.length }}</span></li>
         <li class="uplower"><span>时长</span><span>{{ answerTime.tiem }}</span></li>
         <li class="uplower"><span>北京时间</span><span>{{ presentTime }}</span></li>
-        <li ><span id="end">结束答题</span></li>
+        <li ><span id="end" @click="emit('onshows', false)">结束答题</span></li>
       </ul>
     </header>
     
@@ -161,8 +161,8 @@
       <div class="right">
         <ul class="boxShadow">
           <li @click="sure" :class="!subject.answered ? '' : 'noDrop noBtn'">确认答题&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;揭答案</li>
-          <li :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
-          <li :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题错误&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
+          <li @click="correct" :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
+          <li @click="error" :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题错误&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
           <!--
           <li :class="subject.answered && subject.judge ? '' : 'noDrop noBtn'">修改提示答案</li>
           <li :class="subject.answered && subject.judge ? '' : 'noDrop noBtn'">确定修改提示答案</li>
@@ -174,9 +174,11 @@
           <span>空格 + N: 答题错误-下一题</span>
           <span>空格 + &lt;: 上一题</span>
           <span>空格 + &gt;: 下一题</span>
+          <!--
           <span>空格 + /: 回到最新一题</span>
           <span>空格 + E: 修改提示答案</span>
           <span>空格 + S: 确定修改提示答案</span>
+          -->
         </div>
       </div>
     </div>
