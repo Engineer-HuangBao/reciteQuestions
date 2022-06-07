@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-  import { ref, getCurrentInstance, onBeforeMount, onBeforeUnmount } from 'vue'
+  import { ref, nextTick, getCurrentInstance, onBeforeMount, onBeforeUnmount } from 'vue'
   const { $https } = getCurrentInstance().appContext.config.globalProperties
   // 声明父方法
   const emit = defineEmits(['onshows'])
@@ -16,28 +16,89 @@
   })
 
   // --------------------- 答题 ---------------------
-  // 题目
-  const subject = ref([])
+  // 全部题目
+  const subjects = ref([])
   const getSubject = (isInte = false) => {
-    if (isInte) subject.value = []
+    if (isInte) subjects.value = []
     $https('getSubject', { subjectList: Object.keys(props.subjectList), initial: isInte }).then(res => {
-      subject.value = res
+      if (!res.length) return alert('已经没有题目啦！太厉害了吧！结束答题吧！')
+      const index = subjects.value.length
+      subjects.value.push(...res)
+      isSubjectIndex(index)
     })
   }
-
+  // 当前选中题目
+  const subject = ref({})
+  const subjectIndex = ref(0)
+  const onSubject = (row, index) => {
+    subject.value = row
+    subjectIndex.value = index
+    nextTick(() => {
+      document.getElementById('answered').focus()
+    })
+  }
+  // 是否可选择该题
+  const isSubjectIndex = index => {
+    if (subjects.value.length <= index) return getSubject()
+    onSubject(subjects.value[index], index)
+  }
+  // 确认答题
+  const sure = () => {
+    if (subject.value.answered) return
+    subject.value.answered = true
+  }
+  // 答题正确
+  const correctSubject = ref([])
+  const correct = () => {
+    if (!subject.value.answered && !subject.value.judge) return
+    correctSubject.value.push(subject.value.key)
+    subject.value.judge = 'correct'
+    isSubjectIndex(subjectIndex.value + 1)
+  }
+  // 答题错误
+  const errorSubject = ref([])
+  const error = () => {
+    if (!subject.value.answered && !subject.value.judge) return
+    errorSubject.value.push(subject.value.key)
+    subject.value.judge = 'error'
+    isSubjectIndex(subjectIndex.value + 1)
+  }
+  // 下一题 
+  const forward = () => {
+    isSubjectIndex(subjectIndex.value + 1)
+  }
+  // 上一题 
+  const backward = () => {
+    if (subjectIndex.value <= 0) return
+    isSubjectIndex(subjectIndex.value - 1)
+  }
+  
 
   // 按钮状态合集
   const btnState = ref({
     edit: true,
   })
+
+  const demo = () => {
+    console.log(subjects)
+  }
   // --------------------- 事件 ---------------------
   // 监听组合键
   const shortcutKey = (_this = this) => {
     let space = false
     document.onkeydown = e => {
-        if (props.shows && e.code === 'Space') return (space = true)
-        if (!space) return
-        console.log(e)
+      if (props.shows && e.code === 'Space') return (space = true)
+      if (!space) return
+      switch(e.code){
+        case 'Enter': sure(); break;
+        case 'ShiftRight': correct(); break;
+        case 'KeyN': error(); break;
+        case 'Period': forward(); break;
+        case 'Comma': backward(); break;
+        default:
+          console.log(e)
+          break;
+      }
     }
     document.onkeyup = e => props.shows && (e.code === 'Space') && (space = false)
   }
@@ -75,7 +136,7 @@
     <header>
       <span id="goback" @click="emit('onshows', false)" class="iconfont me">&#xe762;</span>
       <ul>
-        <li class="numberOfQuestions"><span>30</span> / <span>26</span> / <span>4</span></li>
+        <li class="numberOfQuestions"><span>{{ correctSubject.length + errorSubject.length }}</span> / <span>{{ correctSubject.length }}</span> / <span>{{ errorSubject.length }}</span></li>
         <li class="uplower"><span>时长</span><span>{{ answerTime.tiem }}</span></li>
         <li class="uplower"><span>北京时间</span><span>{{ presentTime }}</span></li>
         <li ><span id="end">结束答题</span></li>
@@ -84,27 +145,32 @@
     
     <div class="articleDiv">
       <div class="left boxShadow">
-        <p v-for="(item, index) in subject">{{ item.name }}</p>
+        <div :class="['hover', subject!['key'] === item.key ? 'onClick' : '']" v-for="(item, index) in subjects" @click="onSubject(item, index)">
+          <p>{{ item.name }}</p>
+        </div>
       </div>
       <div class="middle">
-        <h2 class="boxShadow">xxxxxxxxx是干嘛用的?</h2>
-        <textarea class="boxShadow" name="textarea"></textarea>
-        <div class="boxShadow">
-          <!-- <textarea name="" id=""></textarea> -->
-          <span>答案</span>
+        <h2 class="boxShadow">{{ subject.name }}</h2>
+        <div class="userAnswers boxShadow">
+          <textarea id="answered" :disabled="subject.answered" name="textarea" v-model="subject.userAnswers" />
+        </div>
+        <div class="boxShadow answer">
+          <textarea v-if="subject.answered" :disabled="true" v-model="subject.answer" />
         </div>
       </div>
       <div class="right">
         <ul class="boxShadow">
-          <li :class="!btnState.edit ? 'noBtn' : ''">确认答题&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;揭答案</li>
-          <li :class="btnState.edit ? 'noBtn' : ''">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
-          <li :class="btnState.edit ? 'noBtn' : ''">答题错误&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
-          <li :class="btnState.edit ? 'noBtn' : ''">修改提示答案</li>
-          <li :class="btnState.edit ? 'noBtn' : ''">确定修改提示答案</li>
+          <li @click="sure" :class="!subject.answered ? '' : 'noDrop noBtn'">确认答题&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;揭答案</li>
+          <li :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题正确&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
+          <li :class="subject.answered && !subject.judge ? '' : 'noDrop noBtn'">答题错误&nbsp;&nbsp;&nbsp;&amp;&amp;&nbsp;&nbsp;&nbsp;下一题</li>
+          <!--
+          <li :class="subject.answered && subject.judge ? '' : 'noDrop noBtn'">修改提示答案</li>
+          <li :class="subject.answered && subject.judge ? '' : 'noDrop noBtn'">确定修改提示答案</li>
+          -->
         </ul>
         <div class="boxShadow">
           <span>空格 + 回车: 答题确认-出现答案</span>
-          <span>空格 + Y: 答题正确-下一题</span>
+          <span>空格 + Shift: 答题正确-下一题</span>
           <span>空格 + N: 答题错误-下一题</span>
           <span>空格 + &lt;: 上一题</span>
           <span>空格 + &gt;: 下一题</span>

@@ -81,20 +81,27 @@
     }
     .left {
       flex: 2.5;
+      padding: 0px;
       overflow: auto;
       min-width: 300px;
       line-height: 20px;
-      p {
-        overflow: hidden;
-        padding-top: 5px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        border-bottom: 1px dashed black;
+      div {
+        cursor: pointer;
+        user-select: none;
+        p {
+          margin: 0px 10px;
+          overflow: hidden;
+          padding-top: 8px;
+          padding-bottom: 2px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          border-bottom: 1px dashed black;
+        }
       }
     }
     .left::-webkit-scrollbar {
-      width: 15px;
-      height: 15px;
+      width: 0px;
+      height: 0px;
     }
 
 
@@ -115,28 +122,36 @@
         align-items: center;        
         padding: 10px 0px 10px 0px;
       }
-      textarea {
+      .userAnswers{
+        flex: 1;
+        width: calc(100% - 2px);
+        overflow: hidden;
         margin-bottom: 17px;
-        font-size: 20px;
-        text-align: center;
-        width: calc(100% - 2px);
-        border: 1px dashed black;
-        outline: none;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        resize: none;
-      }
-      div {
-        flex: 1;
-        width: calc(100% - 2px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
         textarea {
+          width: 100%;
+          height: 100%;
+          outline: none;
+          resize: none;
+          font-size: 20px;
+          padding: 3px 6px;
+          background: transparent;
+        }
+
+      }
+      .answer {
+        flex: 1;
+        width: calc(100% - 2px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        border: 0px dashed black;
+        textarea {
+          background: transparent;
+          width: 100%;
+          height: 100%;
+          padding: 3px 6px;
           margin: 0px;
-          height: calc(100%);
         }
       }
     }
@@ -180,7 +195,7 @@
         display: flex;
         overflow: auto;
         min-height: 80px;
-        flex: 1;
+        // flex: 1;
         flex-wrap: wrap;
         span {
           border-radius: 50px;
@@ -208,4 +223,16 @@
 .dialog::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+
+
+
+.onClick {
+  box-shadow: 0px 0px 4px -2px;
+  background: #afafafab !important;
+}
+.hover:hover,
+.hover:target {
+  box-shadow: 0px 0px 5px -1px;
+  background: #dddddd;
 }
