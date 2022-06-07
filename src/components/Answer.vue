@@ -1,33 +1,50 @@
 
 <script setup lang="ts">
-  import { ref, onBeforeMount, onBeforeUnmount } from 'vue'
+  import { ref, getCurrentInstance, onBeforeMount, onBeforeUnmount } from 'vue'
+  const { $https } = getCurrentInstance().appContext.config.globalProperties
+  // 声明父方法
   const emit = defineEmits(['onshows'])
   const props = defineProps({
     shows: {
       type: Boolean,
       default: false
+    },
+    subjectList: {
+      type: Object,
+      default: {}
     }
   })
 
+  // --------------------- 答题 ---------------------
+  // 题目
+  const subject = ref([])
+  const getSubject = (isInte = false) => {
+    if (isInte) subject.value = []
+    $https('getSubject', { subjectList: Object.keys(props.subjectList), initial: isInte }).then(res => {
+      subject.value = res
+    })
+  }
+
+
+  // 按钮状态合集
   const btnState = ref({
     edit: true,
   })
-
-
-
-
- const demo1 = [
-    'xxxxx是什么?', 'xxxxx怎么实现?', 'xxxxx原理?', 'xxxxx对么?',
-    'xxxxx是干嘛用的?', 'xxxxx主要功能是什么?', 'xxxxx是什么?', 'xxxxx怎么实现?',
-    'xxxxx原理?', 'xxxxx对么?', 'xxxxx是干嘛用的?', 'xxxxx主要功能是什么?',
-    'xxxxx是什么?', 'xxxxx怎么实现?', 'xxxxx原理?', 'xxxxx对么?',
-    'xxxxx是干嘛用的?', 'xxxxx主要功能是什么?', 'xxxxx是什么?', 'xxxxx怎么实现?',
-    'xxxxx原理?', 'xxxxx对么?', 'xxxxx是干嘛用的xxxxx是干嘛用的xxxxx是干嘛用的xxxxx是干嘛用的?', 'xxxxx主要功能是什么?',
- ]
+  // --------------------- 事件 ---------------------
+  // 监听组合键
+  const shortcutKey = (_this = this) => {
+    let space = false
+    document.onkeydown = e => {
+        if (props.shows && e.code === 'Space') return (space = true)
+        if (!space) return
+        console.log(e)
+    }
+    document.onkeyup = e => props.shows && (e.code === 'Space') && (space = false)
+  }
 
   const answerTime = ref({ tiem: '0-0:0:0', startTime: new Date().getTime()})
   const presentTime = ref(new Date().toLocaleString())
-
+  // 计时器
   const setInt = setInterval(() => {
     // 答题时间
     var endTime = new Date().getTime()
@@ -38,27 +55,19 @@
   },1000)
 
 
-
- const shortcutKey = (_this = this) => {
-   let space = false
-   document.onkeydown = e => {
-      if (props.shows && e.code === 'Space') return (space = true)
-      if (!space) return
-      console.log(e)
-   }
-   document.onkeyup = e => props.shows && (e.code === 'Space') && (space = false)
- }
-
- onBeforeMount(() => {
+  // 挂载后
+  onBeforeMount(() => {
     shortcutKey ()
- })
-
+  })
+  // 销毁前
   onBeforeUnmount(() => {
     document.onkeydown = e => {}
     document.onkeyup = e => {}
     clearInterval(setInt)
   })
 
+  // 函数回抛
+  defineExpose({getSubject})
 </script>
 
 <template>
@@ -75,7 +84,7 @@
     
     <div class="articleDiv">
       <div class="left boxShadow">
-        <p v-for="(item, index) in demo1">{{ item }}</p>
+        <p v-for="(item, index) in subject">{{ item.name }}</p>
       </div>
       <div class="middle">
         <h2 class="boxShadow">xxxxxxxxx是干嘛用的?</h2>

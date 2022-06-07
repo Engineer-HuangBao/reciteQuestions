@@ -1,4 +1,4 @@
-<script setup  lang="ts">
+<script setup lang="ts">
   import Answer from '../components/Answer.vue'
   import { ref, getCurrentInstance, onBeforeMount, onMounted } from 'vue'
   const { $https, $router } = getCurrentInstance().appContext.config.globalProperties
@@ -16,15 +16,16 @@
       if (item.isChoice && item.key === row.key) {
         item.onChoose = item.onChoose ? false : true
         item.onChoose ? onData.value[item.key] = true : delete onData.value[item.key]
-        console.log()
         return true
       }
     })
   }
 
   const shows = ref(false)
+  const answerb =  ref() 
   const onGoSpan = () => {
     shows.value = true
+    answerb.value!.getSubject(true)
   }
 
 </script>
@@ -47,7 +48,7 @@
     </div>
   </article>
 
-  <Answer :shows="shows" @onshows="shows = $event"/>
+  <Answer ref="answerb" :shows="shows" :subjectList="onData" @onshows="shows = $event"/>
 
 </template>
 
