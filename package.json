@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "node ./serve/index.js",
-    "pkillServe": "pkill node",
+    "dev": "node ./serve/index.js & vite",
     "vite": "vite",
+    "serve": "node ./serve/index.js",
+    "pkillServe": "pkill node",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },

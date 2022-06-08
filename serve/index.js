@@ -1,8 +1,8 @@
-const childProcess = require('child_process')
 const fs = require('fs')
 const http = require('http')
 const querystring = require('querystring')
 
+let port = 3022 // 服务器端口号
 
 // json文件配置
 let fromData = {
@@ -55,12 +55,9 @@ server.on('request', (req, res) => {
     if (req.url === '/detailsDelete') return detailsDelete(postParams, res)
   })
 })
-let port = 6868 // 服务器端口号
 server.listen(port)
-console.log('- 服务器已启动') //  - Local: http://localhost:' + port
-childProcess.exec(`npm run vite`)
-console.log('- vite已运行')
-console.log('  > Local: \x1B[34m http://localhost:5858/\x1B[0m')
+console.log('服务器已启动 - Local: http://localhost:' + port)
+
 
 // ----------------------- 答题页 -----------------------
 // 列表接口
