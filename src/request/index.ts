@@ -34,7 +34,7 @@ function post(url: string = '', data: object = {}) {
     url: url,
     data: data,
     method: 'post',
-    baseURL: 'http://localhost:3022/',
+    baseURL: 'http://localhost:6868/',
     timeOut: 10000,
     withCredentials: false,
     headers: {
