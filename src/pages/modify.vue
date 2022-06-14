@@ -93,6 +93,7 @@
         <table border="0" cellspacing="0">
           <thead>
             <tr>
+              <th>序号</th>
               <th>名字</th>
               <!-- <th>答题次数</th> -->
               <!-- <th>常问题</th> -->
@@ -108,6 +109,7 @@
               :key="index"
               @click="tableOnClick(item)"
             >
+              <td>{{ index + 1 }}</td>
               <td>{{ item.name || '' }}</td>
               <!-- <td>{{ item.answerTimes || '' }}</td> -->
               <!-- <td>{{ item.frequentProblems || '' }}</td> -->

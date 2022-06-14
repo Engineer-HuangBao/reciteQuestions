@@ -6,8 +6,8 @@ const querystring = require('querystring')
 
 // json文件配置
 let fromData = {
-  html: {}, css3: {}, javaScript: {}, react: {}, vue: {}, angular: {},
-  wechatApplet: {}, app: {},webpack: {}, vite: {}, nodeJs: {}, 
+  'html+css3': {}, javaScript: {}, react: {}, vue: {}, angular: {},
+  wechatApplet: {}, app: {},webpack: {}, vite: {}, nodeJs: {}, web: {},
   java: {}, 'c++': {}, php: {}, mySQL: {}, git: {}
 }
 
